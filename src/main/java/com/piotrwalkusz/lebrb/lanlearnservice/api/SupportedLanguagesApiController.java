@@ -1,6 +1,7 @@
 package com.piotrwalkusz.lebrb.lanlearnservice.api;
 
 import com.piotrwalkusz.lebrb.lanlearnservice.DictionaryManager;
+import com.piotrwalkusz.lebrb.lanlearnservice.ResponseEntityUtil;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.Language;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.LanguagePair;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.text.html.parser.Entity;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -38,11 +40,24 @@ public class SupportedLanguagesApiController implements SupportedLanguagesApi {
         this.request = request;
     }
 
-    public ResponseEntity<List<LanguagePair>> supportedLanguagesGet(@ApiParam(value = "Get only pairs of languages where a source language equals given language ", allowableValues = "pl, en, de") @Valid @RequestParam(value = "from", required = false) String from,
-                                                                    @ApiParam(value = "Get only pairs of languages where a destination language equals given language ", allowableValues = "pl, en, de") @Valid @RequestParam(value = "to", required = false) String to) {
+    public ResponseEntity<?> supportedLanguagesGet(@ApiParam(value = "Get only pairs of languages where a source language equals given language ", allowableValues = "pl, en, de") @Valid @RequestParam(value = "from", required = false) String from,
+                                                   @ApiParam(value = "Get only pairs of languages where a destination language equals given language ", allowableValues = "pl, en, de") @Valid @RequestParam(value = "to", required = false) String to) {
 
-        Language sourceLanguage = from == null ? null : Language.fromValue(from);
-        Language destinationLanguage = to == null ? null : Language.fromValue(to);
+        Language sourceLanguage;
+        Language destinationLanguage;
+
+        try {
+            sourceLanguage = from == null ? null : Language.fromValueOrException(from);
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntityUtil.badRequest().message("Source language \"%s\" cannot be recognized", from);
+        }
+
+        try {
+            destinationLanguage = to == null ? null : Language.fromValueOrException(to);
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntityUtil.badRequest().message("Destination language \"%s\" cannot be recognized", to);
+        }
+
         List<LanguagePair> languagePairs = dictionaryManager.getAllSupportedTranslations().stream()
                 .map(x -> new LanguagePair(Language.fromLanLearnLanguage(x.getFirst()), Language.fromLanLearnLanguage(x.getSecond())))
                 .filter(x -> (sourceLanguage == null || x.getFrom() == sourceLanguage) &&

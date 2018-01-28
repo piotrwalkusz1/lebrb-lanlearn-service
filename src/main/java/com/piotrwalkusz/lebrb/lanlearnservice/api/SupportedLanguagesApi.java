@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.List;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-01-24T23:16:06.014Z")
 
 @Api(value = "supported-languages", description = "the supported-languages API")
@@ -24,6 +24,6 @@ public interface SupportedLanguagesApi {
         @ApiResponse(code = 200, message = "OK", response = LanguagePair.class, responseContainer = "List") })
     @RequestMapping(value = "/supported-languages",
         method = RequestMethod.GET)
-    ResponseEntity<List<LanguagePair>> supportedLanguagesGet(@ApiParam(value = "Get only pairs of languages where a source language equals given language ", allowableValues = "pl, en, de") @Valid @RequestParam(value = "from", required = false) String from,@ApiParam(value = "Get only pairs of languages where a destination language equals given language ", allowableValues = "pl, en, de") @Valid @RequestParam(value = "to", required = false) String to);
+    ResponseEntity<?> supportedLanguagesGet(@ApiParam(value = "Get only pairs of languages where a source language equals given language ", allowableValues = "pl, en, de") @Valid @RequestParam(value = "from", required = false) String from,@ApiParam(value = "Get only pairs of languages where a destination language equals given language ", allowableValues = "pl, en, de") @Valid @RequestParam(value = "to", required = false) String to);
 
 }

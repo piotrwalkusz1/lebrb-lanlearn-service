@@ -5,29 +5,30 @@
  */
 package com.piotrwalkusz.lebrb.lanlearnservice.api;
 
-import com.piotrwalkusz.lebrb.lanlearnservice.model.InlineResponse200;
+import com.piotrwalkusz.lebrb.lanlearnservice.model.RowWordsCounterResult;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-01-24T23:16:06.014Z")
 
 @Api(value = "words-counter", description = "the words-counter API")
 public interface WordsCounterApi {
 
-    @ApiOperation(value = "Get numbers of occurences and translations of all recognized words in file", nickname = "wordsCounterPost", notes = "", response = InlineResponse200.class, responseContainer = "List", authorizations = {
+    @ApiOperation(value = "Get numbers of occurences and translations of all recognized words in file", nickname = "wordsCounterPost", notes = "", response = RowWordsCounterResult.class, responseContainer = "List", authorizations = {
         @Authorization(value = "JWT")
     }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK", response = InlineResponse200.class, responseContainer = "List") })
+        @ApiResponse(code = 200, message = "OK", response = RowWordsCounterResult.class, responseContainer = "List") })
     @RequestMapping(value = "/words-counter",
         consumes = { "multipart/form-data" },
         method = RequestMethod.POST)
-    ResponseEntity<List<InlineResponse200>> wordsCounterPost(@ApiParam(value = "file detail") @Valid @RequestPart("file") MultipartFile file,@ApiParam(value = "The language of source text", required=true, allowableValues="pl, en, de") @RequestPart(value="from", required=true)  String from,@ApiParam(value = "The language to which source text will be translated", required=true, allowableValues="pl, en, de") @RequestPart(value="to", required=true)  String to);
+    ResponseEntity<?> wordsCounterPost(@ApiParam(value = "file detail") @Valid @RequestPart("file") MultipartFile file,
+                                       @ApiParam(value = "The language of source text", required=true, allowableValues="pl, en, de") @RequestParam(value="from", required=true)  String from,
+                                       @ApiParam(value = "The language to which source text will be translated", required=true, allowableValues="pl, en, de") @RequestParam(value="to", required=true)  String to,
+                                       @RequestHeader("Authorization") String authorizationHeader);
 
 }

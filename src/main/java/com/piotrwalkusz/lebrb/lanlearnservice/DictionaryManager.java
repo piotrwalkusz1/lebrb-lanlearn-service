@@ -28,7 +28,7 @@ public class DictionaryManager {
 
     public void updateDictionaries() {
         dictionaries = dictionaryRepository.findAll().stream()
-                .map(x -> TranslationDictionary.Companion.createFromReader(new StringReader(x.rawDictionary)))
+                .map(x -> TranslationDictionary.Companion.createFromReader(new StringReader(x.getRawDictionary())))
                 .collect(Collectors.toList());
     }
 

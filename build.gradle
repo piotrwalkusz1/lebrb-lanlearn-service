@@ -2,10 +2,11 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url 'https://repo.spring.io/libs-snapshot' }
+        maven { url 'https://repo.spring.io/milestone' }
     }
     dependencies {
         classpath 'com.ryanharter.gradle-git-repo:gradle-plugin:1.0.1'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.BUILD-SNAPSHOT'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.M7'
     }
 }
 
@@ -16,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 
 
 group = 'com.piotrwalkusz.lebrb'
-version = '1.0.0-SNAPSHOT'
+version = '1.0.0'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -25,13 +26,21 @@ targetCompatibility = 1.8
 repositories {
     mavenCentral()
     maven { url 'https://repo.spring.io/libs-snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
     maven { url "https://raw.githubusercontent.com/piotrwalkusz1/lebrb-repository/master/releases" }
     maven { url "https://raw.githubusercontent.com/piotrwalkusz1/lebrb-repository/master/snapshots" }
 }
 
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.M5'
+	}
+}
+
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-web'
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile 'com.auth0:java-jwt:3.3.0'
     compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.7.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.7.0'
     compile group: 'com.github.joschi.jackson', name: 'jackson-datatype-threetenbp', version:'2.6.4'
@@ -41,4 +50,5 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
     compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version:'1.5.4.RELEASE'
     compileOnly group: 'javax.validation', name: 'validation-api', version:'1.1.0.Final'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

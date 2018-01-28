@@ -2,10 +2,9 @@ package com.piotrwalkusz.lebrb.lanlearnservice;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
@@ -20,7 +19,7 @@ public class Swagger2SpringBoot implements CommandLineRunner {
     }
 
     public static void main(String[] args) throws Exception {
-        new SpringApplication(Swagger2SpringBoot.class).run(args);
+        new SpringApplicationBuilder(Swagger2SpringBoot.class).web(WebApplicationType.SERVLET).run(args);
     }
 
     class ExitException extends RuntimeException implements ExitCodeGenerator {

@@ -8,12 +8,12 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.*;
 
 /**
- * InlineResponse200
+ * RowWordsCounterResult
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-01-24T23:16:06.014Z")
 
-public class InlineResponse200   {
+public class RowWordsCounterResult {
   @JsonProperty("ori")
   private String ori = null;
 
@@ -23,7 +23,7 @@ public class InlineResponse200   {
   @JsonProperty("num")
   private Integer num = null;
 
-  public InlineResponse200 ori(String ori) {
+  public RowWordsCounterResult ori(String ori) {
     this.ori = ori;
     return this;
   }
@@ -43,7 +43,7 @@ public class InlineResponse200   {
     this.ori = ori;
   }
 
-  public InlineResponse200 tra(String tra) {
+  public RowWordsCounterResult tra(String tra) {
     this.tra = tra;
     return this;
   }
@@ -63,7 +63,7 @@ public class InlineResponse200   {
     this.tra = tra;
   }
 
-  public InlineResponse200 num(Integer num) {
+  public RowWordsCounterResult num(Integer num) {
     this.num = num;
     return this;
   }
@@ -93,10 +93,10 @@ public class InlineResponse200   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse200 inlineResponse200 = (InlineResponse200) o;
-    return Objects.equals(this.ori, inlineResponse200.ori) &&
-        Objects.equals(this.tra, inlineResponse200.tra) &&
-        Objects.equals(this.num, inlineResponse200.num);
+    RowWordsCounterResult rowWordsCounterResult = (RowWordsCounterResult) o;
+    return Objects.equals(this.ori, rowWordsCounterResult.ori) &&
+        Objects.equals(this.tra, rowWordsCounterResult.tra) &&
+        Objects.equals(this.num, rowWordsCounterResult.num);
   }
 
   @Override
@@ -107,7 +107,7 @@ public class InlineResponse200   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse200 {\n");
+    sb.append("class RowWordsCounterResult {\n");
     
     sb.append("    ori: ").append(toIndentedString(ori)).append("\n");
     sb.append("    tra: ").append(toIndentedString(tra)).append("\n");

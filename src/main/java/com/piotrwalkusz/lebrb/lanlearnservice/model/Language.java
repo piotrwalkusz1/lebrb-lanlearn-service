@@ -52,6 +52,15 @@ public enum Language {
         return null;
     }
 
+    public static Language fromValueOrException(String text) {
+        Language language = fromValue(text);
+        if (language == null) {
+            throw new IllegalArgumentException();
+        } else {
+            return language;
+        }
+    }
+
     public static Language fromLanLearnLanguage(com.piotrwalkusz.lebrb.lanlearn.Language language) {
         for (Language lan : Language.values()) {
             if (lan.toLanLearnLanguage() == language) {
