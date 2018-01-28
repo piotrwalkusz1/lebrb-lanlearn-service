@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/libs-snapshot' }
+    }
+    dependencies {
+        classpath 'com.ryanharter.gradle-git-repo:gradle-plugin:1.0.1'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.BUILD-SNAPSHOT'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'git-repo'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+group = 'com.piotrwalkusz.lebrb'
+version = '1.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/libs-snapshot' }
+    maven { url "https://raw.githubusercontent.com/piotrwalkusz1/lebrb-repository/master/releases" }
+    maven { url "https://raw.githubusercontent.com/piotrwalkusz1/lebrb-repository/master/snapshots" }
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.7.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.7.0'
+    compile group: 'com.github.joschi.jackson', name: 'jackson-datatype-threetenbp', version:'2.6.4'
+    compile (group: 'com.piotrwalkusz.lebrb', name: 'lebrb-lanlearn', version: '1.0.0') {
+        exclude group: 'org.slf4j', module: 'slf4j-nop'
+    }
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+    compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version:'1.5.4.RELEASE'
+    compileOnly group: 'javax.validation', name: 'validation-api', version:'1.1.0.Final'
+}
