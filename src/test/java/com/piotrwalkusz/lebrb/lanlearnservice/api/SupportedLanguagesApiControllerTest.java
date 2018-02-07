@@ -1,7 +1,7 @@
 package com.piotrwalkusz.lebrb.lanlearnservice.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.piotrwalkusz.lebrb.lanlearnservice.DictionaryManager;
+import com.piotrwalkusz.lebrb.lanlearndictionaries.DictionaryManager;
 import com.piotrwalkusz.lebrb.lanlearnservice.Swagger2SpringBoot;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.ErrorMessage;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.Language;

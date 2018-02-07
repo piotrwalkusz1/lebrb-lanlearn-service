@@ -39,14 +39,11 @@ dependencyManagement {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile 'com.auth0:java-jwt:3.3.0'
     compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.7.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.7.0'
     compile group: 'com.github.joschi.jackson', name: 'jackson-datatype-threetenbp', version:'2.6.4'
-    compile (group: 'com.piotrwalkusz.lebrb', name: 'lebrb-lanlearn', version: '1.0.0') {
-        exclude group: 'org.slf4j', module: 'slf4j-nop'
-    }
+    compile (group: 'com.piotrwalkusz.lebrb', name: 'lebrb-lanlearn-dictionaries', version: '1.1.0')
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
     compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version:'1.5.4.RELEASE'
     compileOnly group: 'javax.validation', name: 'validation-api', version:'1.1.0.Final'

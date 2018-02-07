@@ -1,7 +1,7 @@
 package com.piotrwalkusz.lebrb.lanlearnservice.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.piotrwalkusz.lebrb.lanlearnservice.DictionaryManager;
+import com.piotrwalkusz.lebrb.lanlearndictionaries.DictionaryManager;
 import com.piotrwalkusz.lebrb.lanlearnservice.ResponseEntityUtil;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.Language;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.LanguagePair;
