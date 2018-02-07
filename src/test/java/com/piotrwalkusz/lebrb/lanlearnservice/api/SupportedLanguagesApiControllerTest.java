@@ -1,9 +1,7 @@
 package com.piotrwalkusz.lebrb.lanlearnservice.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.piotrwalkusz.lebrb.lanlearnservice.DictionaryEntity;
-import com.piotrwalkusz.lebrb.lanlearnservice.DictionaryRepository;
+import com.piotrwalkusz.lebrb.lanlearnservice.DictionaryManager;
 import com.piotrwalkusz.lebrb.lanlearnservice.Swagger2SpringBoot;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.ErrorMessage;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.Language;
@@ -20,21 +18,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.data.util.Pair;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -60,14 +57,14 @@ public class SupportedLanguagesApiControllerTest {
     public static class TestConfiguration {
 
         @Bean
-        public DictionaryRepository dictionaryRepository() {
-            DictionaryRepository repo = Mockito.mock(DictionaryRepository.class);
-            given(repo.findAll()).willReturn(Arrays.asList(
-                    new DictionaryEntity("0", "german;english\n"),
-                    new DictionaryEntity("1", "german;polish\n"),
-                    new DictionaryEntity("2", "polish;english\n")));
+        public DictionaryManager dictionaryManager() {
+            DictionaryManager dictionaryManager = Mockito.mock(DictionaryManager.class);
+            given(dictionaryManager.getAllSupportedTranslations()).willReturn(Arrays.asList(
+                    Pair.of(com.piotrwalkusz.lebrb.lanlearn.Language.GERMAN, com.piotrwalkusz.lebrb.lanlearn.Language.ENGLISH),
+                    Pair.of(com.piotrwalkusz.lebrb.lanlearn.Language.GERMAN, com.piotrwalkusz.lebrb.lanlearn.Language.POLISH),
+                    Pair.of(com.piotrwalkusz.lebrb.lanlearn.Language.POLISH, com.piotrwalkusz.lebrb.lanlearn.Language.ENGLISH)));
 
-            return repo;
+            return dictionaryManager;
         }
     }
 

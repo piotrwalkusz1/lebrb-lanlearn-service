@@ -1,11 +1,11 @@
 package com.piotrwalkusz.lebrb.lanlearnservice.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.piotrwalkusz.lebrb.lanlearnservice.DictionaryManager;
 import com.piotrwalkusz.lebrb.lanlearnservice.ResponseEntityUtil;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.Language;
 import com.piotrwalkusz.lebrb.lanlearnservice.model.LanguagePair;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.swing.text.html.parser.Entity;
-import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -2,33 +2,47 @@ package com.piotrwalkusz.lebrb.lanlearnservice;
 
 import com.piotrwalkusz.lebrb.lanlearn.Language;
 import com.piotrwalkusz.lebrb.lanlearn.TranslationDictionary;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.StringReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class DictionaryManager {
 
-    @Autowired
-    private DictionaryRepository dictionaryRepository;
+    private GridFsTemplate gridFs;
 
-    private List<TranslationDictionary> dictionaries;
+    public DictionaryManager(GridFsTemplate gridFS) {
+        this.gridFs = gridFS;
+    }
 
     @PostConstruct
-    private void initialize() {
+    private void initialization() {
         updateDictionaries();
     }
 
+    private List<TranslationDictionary> dictionaries = Collections.emptyList();
+
     public void updateDictionaries() {
-        dictionaries = dictionaryRepository.findAll().stream()
-                .map(x -> TranslationDictionary.Companion.createFromReader(new StringReader(x.getRawDictionary())))
+        dictionaries = Arrays.stream(gridFs.getResources("*"))
+                .map(x -> {
+                    try {
+                        return TranslationDictionary.Companion.createFromReader(new InputStreamReader(x.getInputStream()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 

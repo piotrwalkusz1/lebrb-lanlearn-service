@@ -2,10 +2,9 @@ package com.piotrwalkusz.lebrb.lanlearnservice.api;
 
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-01-24T23:16:06.014Z")
 
