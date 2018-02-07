@@ -15,6 +15,9 @@ import java.util.Objects;
 
 public class RowWordsCounterResult {
 
+    @JsonProperty("lem")
+    private String lem = null;
+
     @JsonProperty("ori")
     private String ori = null;
 
@@ -23,6 +26,22 @@ public class RowWordsCounterResult {
 
     @JsonProperty("num")
     private Integer num = null;
+
+    public RowWordsCounterResult lem(String lem) {
+        this.lem = lem;
+        return this;
+    }
+
+    @ApiModelProperty(value = "Lemma")
+
+
+    public String getLem() {
+        return lem;
+    }
+
+    public void setLem(String lem) {
+        this.lem = lem;
+    }
 
     public RowWordsCounterResult ori(String ori) {
         this.ori = ori;

@@ -100,8 +100,8 @@ public class WordsCounterApiControllerTest {
         String validToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEwMDAwMDAwMDUsImZpbGVTaXplIjoxNjM4M30.IMJeIIPQSknjY2UW3kI5tU_2JEFpZZtwrx3CLJsaGms";
         Path path = webApplicationContext.getResource("classpath:short example.pdf").getFile().toPath();
         List<RowWordsCounterResult> expectedResponse = new ArrayList<RowWordsCounterResult>();
-        expectedResponse.add(new RowWordsCounterResult().ori("Hund").tra("dog").num(1));
-        expectedResponse.add(new RowWordsCounterResult().ori("Katze").tra("cat").num(2));
+        expectedResponse.add(new RowWordsCounterResult().lem("hund").ori("Hund").tra("dog").num(1));
+        expectedResponse.add(new RowWordsCounterResult().lem("katze").ori("Katze").tra("cat").num(2));
 
         mockMvc.perform(multipart("/words-counter")
                 .file("file", Files.readAllBytes(path))

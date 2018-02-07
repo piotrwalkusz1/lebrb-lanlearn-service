@@ -79,12 +79,13 @@ public class WordsCounterApiController implements WordsCounterApi {
         }
 
         try(InputStream inputstream = file.getInputStream()) {
-            Map<String, Pair<String, Integer>> result = lanLearnProcessor.countAndTranslateWords(inputstream, MediaType.PDF, dictionary);
-            List<RowWordsCounterResult> responseBody = result.entrySet().stream()
+            Map<String, Integer> wordsFrequency = lanLearnProcessor.countWords(inputstream, MediaType.PDF, sourceLanguage, dictionary.getTranslatableWords());
+            List<RowWordsCounterResult> responseBody = wordsFrequency.entrySet().stream()
                     .map(x -> new RowWordsCounterResult()
-                            .ori(x.getKey())
-                            .tra(x.getValue().getFirst())
-                            .num(x.getValue().getSecond())
+                            .lem(x.getKey())
+                            .ori(dictionary.getRepresentation(x.getKey()))
+                            .tra(dictionary.translate(x.getKey()))
+                            .num(x.getValue())
                     ).collect(Collectors.toList());
             return new ResponseEntity<List<RowWordsCounterResult>>(responseBody, HttpStatus.OK);
         } catch (IOException ex) {
